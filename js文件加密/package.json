@@ -1,0 +1,21 @@
+{
+  "name": "jsobfuscator",
+  "version": "1.0.1",
+  "description": "js文件加密程序",
+  "main": "jsobfuscator.js",
+  "scripts": {
+    "test": "start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SignalEmit"
+  },
+  "keywords": [
+    "javascriptobfuscator"
+  ],
+  "author": "SignalEmit",
+  "license": "ISC",
+  "dependencies": {
+    "javascript-obfuscator": "^0.18.1"
+  }
+}
