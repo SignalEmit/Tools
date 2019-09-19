@@ -48,14 +48,11 @@ for (let i = 0; i < filesList.length; i++) {
                 // unicodeEscapeSequence: false
             }
         );
-        fs.writeFile(filepath, obfuscationResult.getObfuscatedCode(), (error) => {
-            if (error) {
-                console.log("["+filepath+"] 件加密失败。");
-            } else {
-                console.log("["+filepath+"] 文件加密成功。");
-            }
-        });
+
+        fs.writeFileSync(filepath, obfuscationResult.getObfuscatedCode());
+        console.log("["+filepath+"] 文件加密成功。");
     }
+        
 }
 
 
