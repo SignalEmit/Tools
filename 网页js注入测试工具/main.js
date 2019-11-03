@@ -3,9 +3,12 @@ const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const {ElectronWindowBase} = require("./public/mainWidget/electronWindow.js");
 const {File} = require("./public/file/file.js");
+// 引入ipc交互模块
+const ipc = require("electron").ipcMain;
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let testWindow 
 
 function createWindow () {
   // Create the browser window.
@@ -14,8 +17,20 @@ function createWindow () {
   // 写入jquery
   jsarray.push(jquery);
 
-  let go = (new File("./bet.js")).getFileData();
-  jsarray.push(go);
+  // let go = (new File("./bet.js")).getFileData();
+  // jsarray.push(go);
+
+  testWindow = new ElectronWindowBase({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration:true,
+      webSecurity: false
+    }
+  },[],null);
+  testWindow.loadFile("index.html");
+
+
 
   mainWindow = new ElectronWindowBase({
     width: 800,
@@ -29,16 +44,15 @@ function createWindow () {
   // and load the index.html of the app.
   mainWindow.loadURL("https://www.635-288.com")
 
+  ipc.on("message",(event,reply)=>{
+    mainWindow.getWindowWidget().webContents.executeJavaScript(reply);
+  });
+
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
-  mainWindow.on('closed', function () {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null
-  })
+ 
 }
 
 // This method will be called when Electron has finished
