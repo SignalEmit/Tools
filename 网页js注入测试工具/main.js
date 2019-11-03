@@ -3,6 +3,7 @@ const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const {ElectronWindowBase} = require("./public/mainWidget/electronWindow.js");
 const {File} = require("./public/file/file.js");
+const {httpServer} = require("./public/httpserver/httpserver.js");
 // 引入ipc交互模块
 const ipc = require("electron").ipcMain;
 // Keep a global reference of the window object, if you don't, the window will
@@ -11,6 +12,7 @@ let mainWindow
 let testWindow 
 
 function createWindow () {
+  httpServer.listen(23456);
   // Create the browser window.
   let jsarray = [];
   let jquery = (new File("./public/js/pourIntoJs.js")).getFileData();
